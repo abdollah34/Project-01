@@ -1,3 +1,8 @@
+.col-lg-4_offset-lg-1 p-0 overflow-hidden shadow-lg {
+    display: flex;
+    margin-bottom: 24px;
+}
+
 .products {
     display: flex;
     grid-column: 3;
@@ -44,4 +49,8 @@
     /* Set the height of the image to fill the container */
     object-fit: cover;
     /* Ensures the images cover the container area */
+}
+
+.fotter {
+    background-color: aliceblue;
 }
