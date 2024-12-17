@@ -1,0 +1,12 @@
+.col-lg-4_offset-lg-1 p-0 overflow-hidden shadow-lg {
+    display: flex;
+    margin-bottom: 24px;
+}
+
+.products {
+    display: flex;
+    grid-column: 3;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
