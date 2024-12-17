@@ -1,0 +1,47 @@
+.products {
+    display: flex;
+    grid-column: 3;
+    justify-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px 30px;
+    flex: 0 0 30%;
+    background-color: lightgray;
+}
+
+.img {
+    border-radius: 0
+}
+
+.card {
+    flex: 1 0 30%;
+    /* Each item takes up 30% of the container's width, creating 3 columns */
+    box-sizing: border-box;
+    /* Ensures padding doesn't affect the width */
+    background-color: lightgray;
+    padding: 10px;
+    text-align: center;
+}
+
+#carouselExampleIndicators {
+    width: 50%;
+    /* Set the carousel width to 50% of the parent container (adjust as needed) */
+    max-width: 500px;
+    /* Set a max width to prevent it from getting too large */
+    margin: 0 auto;
+    /* Center the carousel horizontally */
+}
+
+.carousel-inner {
+    height: 300px;
+    /* Adjust the height of the carousel */
+}
+
+.carousel-inner img {
+    width: 100%;
+    /* Make the image width 100% of the container */
+    height: 100%;
+    /* Set the height of the image to fill the container */
+    object-fit: cover;
+    /* Ensures the images cover the container area */
+}
