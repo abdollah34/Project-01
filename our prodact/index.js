@@ -30,3 +30,19 @@ function updateCartCount() {
     let count = parseInt(cartCount.textContent);
     cartCount.textContent = count + 1; // Increase the cart count by 1
 }
+// Select all scroll items
+const scrollItems = document.querySelectorAll('.scroll-item');
+
+// Set up Intersection Observer
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show'); // Add 'show' class when in view
+        } else {
+            entry.target.classList.remove('show'); // Optional: remove class when out of view
+        }
+    });
+}, { threshold: 0.1 }); // Trigger when 10% is visible
+
+// Observe each scroll item
+scrollItems.forEach(item => observer.observe(item));
