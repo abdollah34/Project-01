@@ -1,40 +1,28 @@
-// Cart functionality
-const addToCartButtons = document.querySelectorAll('.add-to-cart');
+// Initialize an empty cart if not already present
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-addToCartButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        const productName = button.getAttribute('data-name');
-        const productPrice = button.getAttribute('data-price');
+// Function to add a product to the cart
+function addToCart(product) {
+    const existingProduct = cart.find(item => item.id === product.id);
+    if (existingProduct) {
+        existingProduct.quantity += 1;
+    } else {
+        cart.push({...product, quantity: 1 });
+    }
 
-        // You can store these in localStorage or sessionStorage to keep the cart persistent
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        cart.push({ name: productName, price: productPrice });
-
-        // Save back to localStorage
-        localStorage.setItem('cart', JSON.stringify(cart));
-
-        // Optionally, update the cart display
-        updateCartDisplay();
-    });
-});
-
-// Update cart display
-function updateCartDisplay() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartList = document.querySelector('.list-group');
-
-    // Clear current list
-    cartList.innerHTML = '';
-
-    // Loop through the cart and add items to the list
-    cart.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.classList.add('list-group-item');
-        listItem.innerText = `${item.name} - ${item.price} MAD`;
-        cartList.appendChild(listItem);
-    });
+    // Save the cart to localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`${product.name} added to the cart!`);
 }
 
-// Initial cart display
-updateCartDisplay();
+// Event listener for "Add to Cart" buttons
+document.querySelectorAll(".add-to-cart").forEach(button => {
+    button.addEventListener("click", () => {
+        const product = {
+            id: button.dataset.id,
+            name: button.dataset.name,
+            price: parseFloat(button.dataset.price),
+        };
+        addToCart(product);
+    });
+});

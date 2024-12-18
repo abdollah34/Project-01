@@ -1,45 +1,49 @@
-        // Function to load and display cart data
-        function loadCart() {
-            const cart = JSON.parse(localStorage.getItem("cart")) || []; // Load cart from localStorage
-            const cartItemsElement = document.getElementById("cart-items");
-            const cartCountElement = document.getElementById("cart-count");
-            const cartTotalElement = document.getElementById("cart-total");
+// Load the cart from localStorage
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-            // Clear existing cart content
-            cartItemsElement.innerHTML = "";
+// Function to update the cart display
+function updateCartUI() {
+    const cartElement = document.getElementById("cart");
+    const totalElement = document.getElementById("total-price");
+    cartElement.innerHTML = ""; // Clear the cart display
 
-            if (cart.length === 0) {
-                // If the cart is empty
-                cartItemsElement.innerHTML = '<li class="list-group-item d-flex justify-content-between"><span>Your cart is empty.</span></li>';
-                cartCountElement.textContent = "0";
-                cartTotalElement.textContent = "$0.00";
-                return;
-            }
+    let totalPrice = 0;
 
-            // Populate the cart items
-            let totalItems = 0;
-            let totalPrice = 0;
-            cart.forEach(item => {
-                const cartItem = document.createElement("li");
-                cartItem.className = "list-group-item d-flex justify-content-between lh-sm";
-                cartItem.innerHTML = `
-                    <div>
-                        <h6 class="my-0">${item.name}</h6>
-                        <small class="text-muted">Quantity: ${item.quantity}</small>
-                    </div>
-                    <span class="text-muted">$${(item.price * item.quantity).toFixed(2)}</span>
-                `;
-                cartItemsElement.appendChild(cartItem);
-                totalItems += item.quantity;
-                totalPrice += item.price * item.quantity;
-            });
+    cart.forEach(item => {
+        totalPrice += item.price * item.quantity;
 
-            // Update the cart count badge
-            cartCountElement.textContent = totalItems;
+        const cartItem = document.createElement("div");
+        cartItem.className = "cart-item";
+        cartItem.innerHTML = `
+            <span>${item.name} - ${item.price.toFixed(2)} MAD</span>
+            <button class="btn btn-sm btn-secondary" onclick="changeQuantity('${item.id}', -1)">-</button>
+            <span>${item.quantity}</span>
+            <button class="btn btn-sm btn-secondary" onclick="changeQuantity('${item.id}', 1)">+</button>
+        `;
+        cartElement.appendChild(cartItem);
+    });
 
-            // Update the total price
-            cartTotalElement.textContent = `$${totalPrice.toFixed(2)}`;
+    totalElement.textContent = `Total: ${totalPrice.toFixed(2)} MAD`;
+
+    // Handle empty cart
+    if (cart.length === 0) {
+        cartElement.innerHTML = "<p>Your cart is empty!</p>";
+        totalElement.textContent = "Total: 0 MAD";
+    }
+}
+
+// Function to change the quantity of a product
+function changeQuantity(productId, change) {
+    const product = cart.find(item => item.id === productId);
+    if (product) {
+        product.quantity += change;
+        if (product.quantity <= 0) {
+            cart = cart.filter(item => item.id !== productId);
         }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartUI();
+    }
+}
 
-        // Load the cart when the page loads
-        document.addEventListener("DOMContentLoaded", loadCart);
+// Initial cart display
+updateCartUI();
