@@ -7,15 +7,10 @@
     display: flex;
     grid-column: 3;
     justify-content: center;
-    justify-content: center;
     flex-wrap: wrap;
     gap: 30px 30px;
     flex: 0 0 30%;
     background-color: lightgray;
-}
-
-.img {
-    border-radius: 0
 }
 
 .card {

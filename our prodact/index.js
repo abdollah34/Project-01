@@ -1,48 +1,40 @@
-document.querySelectorAll('.add-to-cart').forEach(button => {
-    button.addEventListener('click', (e) => {
-        const productCard = e.target.closest('.card');
-        const cartIcon = document.getElementById('cart-icon');
+// Cart functionality
+const addToCartButtons = document.querySelectorAll('.add-to-cart');
 
-        // Create a clone of the product image for the animation
-        const productImage = productCard.querySelector('img');
-        const flyingImage = productImage.cloneNode(true);
+addToCartButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const productName = button.getAttribute('data-name');
+        const productPrice = button.getAttribute('data-price');
 
-        // Style the cloned image for the animation
-        flyingImage.style.position = 'absolute';
-        flyingImage.style.left = `${productCard.offsetLeft + productImage.offsetLeft}px`;
-        flyingImage.style.top = `${productCard.offsetTop + productImage.offsetTop}px`;
-        flyingImage.style.zIndex = '999';
-        document.body.appendChild(flyingImage);
+        // You can store these in localStorage or sessionStorage to keep the cart persistent
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-        // Add the flying animation class
-        flyingImage.classList.add('fly');
+        cart.push({ name: productName, price: productPrice });
 
-        // After animation ends, remove the cloned image and update cart count
-        flyingImage.addEventListener('animationend', () => {
-            document.body.removeChild(flyingImage);
-            updateCartCount();
-        });
+        // Save back to localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        // Optionally, update the cart display
+        updateCartDisplay();
     });
 });
 
-function updateCartCount() {
-    const cartCount = document.getElementById('cart-count');
-    let count = parseInt(cartCount.textContent);
-    cartCount.textContent = count + 1; // Increase the cart count by 1
-}
-// Select all scroll items
-const scrollItems = document.querySelectorAll('.scroll-item');
+// Update cart display
+function updateCartDisplay() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartList = document.querySelector('.list-group');
 
-// Set up Intersection Observer
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('show'); // Add 'show' class when in view
-        } else {
-            entry.target.classList.remove('show'); // Optional: remove class when out of view
-        }
+    // Clear current list
+    cartList.innerHTML = '';
+
+    // Loop through the cart and add items to the list
+    cart.forEach(item => {
+        const listItem = document.createElement('li');
+        listItem.classList.add('list-group-item');
+        listItem.innerText = `${item.name} - ${item.price} MAD`;
+        cartList.appendChild(listItem);
     });
-}, { threshold: 0.1 }); // Trigger when 10% is visible
+}
 
-// Observe each scroll item
-scrollItems.forEach(item => observer.observe(item));
+// Initial cart display
+updateCartDisplay();
