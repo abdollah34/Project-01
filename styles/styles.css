@@ -89,3 +89,10 @@ video {
     height: auto;
     /* Automatic height based on the aspect ratio */
 }
+
+
+/* Hide video controls (e.g., play button) */
+
+video::-webkit-media-controls {
+    display: none !important;
+}
