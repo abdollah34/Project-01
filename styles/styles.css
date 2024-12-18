@@ -58,3 +58,9 @@
 .pb-2_border-bottom {
     background-color: lightgray;
 }
+
+.bestprodact {
+    background-color: lightgrey;
+    display: flex;
+    justify-content: center;
+}
