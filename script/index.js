@@ -1,27 +1,60 @@
-document.addEventListener("DOMContentLoaded", () => {
-    let cartCounter = 0;
-    const cartCounterElement = document.getElementById("cart-counter");
-    const cartItemsElement = document.getElementById("cart-items");
+// Initialize an empty cart
+let cart = [];
 
-    document.querySelectorAll(".add-to-cart").forEach((button) => {
-        button.addEventListener("click", () => {
-            // Increment the cart counter
-            cartCounter++;
-            cartCounterElement.textContent = cartCounter;
+// Function to add a product to the cart
+function addToCart(product) {
+    // Check if the product is already in the cart
+    const existingProduct = cart.find(item => item.id === product.id);
+    if (existingProduct) {
+        // If it's already in the cart, increase the quantity
+        existingProduct.quantity += 1;
+    } else {
+        // Otherwise, add it to the cart
+        cart.push({...product, quantity: 1 });
+    }
+    console.log("Cart Updated:", cart);
+    updateCartUI();
+}
 
-            // Add the item to the cart
-            const itemName = button.getAttribute("data-name");
-            const itemPrice = button.getAttribute("data-price");
+// Function to update the cart display
+function updateCartUI() {
+    const cartElement = document.getElementById("cart");
+    cartElement.innerHTML = ""; // Clear the cart display
+    cart.forEach(item => {
+        const cartItem = document.createElement("div");
+        cartItem.className = "cart-item";
+        cartItem.innerHTML = `
+            <span>${item.name} - $${item.price}</span>
+            <button onclick="changeQuantity('${item.id}', -1)">-</button>
+            <span>${item.quantity}</span>
+            <button onclick="changeQuantity('${item.id}', 1)">+</button>
+        `;
+        cartElement.appendChild(cartItem);
+    });
+}
 
-            const newItem = document.createElement("li");
-            newItem.className = "list-group-item d-flex justify-content-between lh-sm";
-            newItem.innerHTML = `
-                <div>
-                    <h6 class="my-0">${itemName}</h6>
-                </div>
-                <span class="text-body-secondary">$${itemPrice}</span>
-            `;
-            cartItemsElement.appendChild(newItem);
-        });
+// Function to change the quantity of a product
+function changeQuantity(productId, change) {
+    const product = cart.find(item => item.id === productId);
+    if (product) {
+        product.quantity += change;
+        // Remove the product if quantity is zero or less
+        if (product.quantity <= 0) {
+            cart = cart.filter(item => item.id !== productId);
+        }
+        console.log("Cart Updated:", cart);
+        updateCartUI();
+    }
+}
+
+// Event listener for "Add to Cart" buttons
+document.querySelectorAll(".add-to-cart").forEach(button => {
+    button.addEventListener("click", () => {
+        const product = {
+            id: button.dataset.id,
+            name: button.dataset.name,
+            price: parseFloat(button.dataset.price),
+        };
+        addToCart(product);
     });
 });
