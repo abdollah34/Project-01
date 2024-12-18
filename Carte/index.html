@@ -27,10 +27,10 @@
             </ul>
 
             <div class="col-md-3 text-end">
-                <button type="button" class="btn btn-primary"><a href="/Project-01/Carte/index.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
+                <button type="button" class="btn btn-primary" onclick="location.href='/Project-01/Carte/index.html'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
                     <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z"/>
                     <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                  </svg></a>Cart</button>
+                  </svg>Cart</button>
             </div>
         </header>
     </div>
@@ -44,31 +44,29 @@
             </h4>
 
             <ul class="list-group mb-3" id="cart-items">
-                <!-- Cart items will be dynamically loaded here -->
+                <!-- Cart items dynamically loaded -->
             </ul>
 
-            <form class="card p-2">
+            <form class="card p-2" onsubmit="applyPromoCode(event)">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Promo code">
+                    <input type="text" class="form-control" placeholder="Promo code" id="promo-code">
                     <button type="submit" class="btn btn-secondary">Redeem</button>
                 </div>
             </form>
         </div>
 
         <script>
-            // Load cart from localStorage and display items
+            let promoCodeRedeemed = false; // Track promo code usage
+
             function loadCart() {
                 const cart = JSON.parse(localStorage.getItem('cart')) || [];
                 const cartItemsContainer = document.getElementById('cart-items');
                 const cartCount = document.getElementById('cart-count');
 
-                // Clear current cart items
                 cartItemsContainer.innerHTML = '';
-
                 let totalItems = 0;
                 let totalPrice = 0;
 
-                // Populate cart items
                 cart.forEach((item, index) => {
                     const listItem = document.createElement('li');
                     listItem.className = 'list-group-item d-flex justify-content-between lh-sm';
@@ -79,16 +77,17 @@
                             <small class="text-muted">Quantity: ${item.quantity}</small>
                         </div>
                         <span class="text-muted">${(item.price * item.quantity).toFixed(2)} MAD</span>
-                        <button class="btn btn-danger btn-sm remove-item" data-index="${index}">Remove</button>
+                        <div>
+                            <button class="btn btn-secondary btn-sm decrease-item" data-index="${index}">-</button>
+                            <button class="btn btn-secondary btn-sm increase-item" data-index="${index}">+</button>
+                        </div>
                     `;
 
                     cartItemsContainer.appendChild(listItem);
-
                     totalItems += item.quantity;
                     totalPrice += item.price * item.quantity;
                 });
 
-                // Update cart badge and total
                 cartCount.textContent = totalItems;
 
                 if (cart.length === 0) {
@@ -98,33 +97,66 @@
                     cartItemsContainer.appendChild(emptyMessage);
                 }
 
-                // Add total price
                 const totalItem = document.createElement('li');
                 totalItem.className = 'list-group-item d-flex justify-content-between';
                 totalItem.innerHTML = `
                     <span>Total (MAD)</span>
-                    <strong>${totalPrice.toFixed(2)}</strong>
+                    <strong id="total-price">${totalPrice.toFixed(2)}</strong>
                 `;
                 cartItemsContainer.appendChild(totalItem);
 
-                // Attach remove item handlers
-                document.querySelectorAll('.remove-item').forEach(button => {
+                document.querySelectorAll('.decrease-item').forEach(button => {
                     button.addEventListener('click', function() {
                         const index = parseInt(this.getAttribute('data-index'));
-                        removeFromCart(index);
+                        decreaseQuantity(index);
+                    });
+                });
+
+                document.querySelectorAll('.increase-item').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        increaseQuantity(index);
                     });
                 });
             }
 
-            // Remove item from cart
-            function removeFromCart(index) {
+            function decreaseQuantity(index) {
                 const cart = JSON.parse(localStorage.getItem('cart')) || [];
-                cart.splice(index, 1); // Remove item by index
-                localStorage.setItem('cart', JSON.stringify(cart)); // Update localStorage
-                loadCart(); // Reload cart
+                if (cart[index].quantity > 1) {
+                    cart[index].quantity--;
+                } else {
+                    cart.splice(index, 1);
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCart();
             }
 
-            // Load the cart on page load
+            function increaseQuantity(index) {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart[index].quantity++;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCart();
+            }
+
+            function applyPromoCode(event) {
+                event.preventDefault();
+                const promoCode = document.getElementById('promo-code').value.trim();
+                const totalPriceElement = document.getElementById('total-price');
+                let totalPrice = parseFloat(totalPriceElement.textContent);
+
+                if (promoCode === 'HamiidXD' && !promoCodeRedeemed) {
+                    const discount = totalPrice * 0.05;
+                    totalPrice -= discount;
+                    promoCodeRedeemed = true; // Mark as redeemed
+                    alert(`Promo code applied! You saved ${discount.toFixed(2)} MAD.`);
+                    totalPriceElement.textContent = totalPrice.toFixed(2);
+                } else if (promoCodeRedeemed) {
+                    alert('Promo code already redeemed.');
+                } else {
+                    alert('Invalid promo code.');
+                }
+            }
+
             loadCart();
         </script>
 
