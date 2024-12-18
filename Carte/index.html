@@ -40,10 +40,10 @@
         <div class="col-md-5 col-lg-4 order-md-last">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-primary">Your cart</span>
-                <ul class="list-group mb-3"></ul>
-                <span class="badge bg-primary rounded-pill">0</span>
+                <span class="badge bg-primary rounded-pill" id="cart-count">0</span>
             </h4>
-            <ul class="list-group mb-3">
+            <ul class="list-group mb-3" id="cart-items">
+                <!-- Cart items will be dynamically loaded here -->
             </ul>
 
             <form class="card p-2">
@@ -53,6 +53,80 @@
                 </div>
             </form>
         </div>
+
+        <script>
+            // Load cart from localStorage and display items
+            function loadCart() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const cartItemsContainer = document.getElementById('cart-items');
+                const cartCount = document.getElementById('cart-count');
+
+                // Clear current cart items
+                cartItemsContainer.innerHTML = '';
+
+                let totalItems = 0;
+                let totalPrice = 0;
+
+                // Populate cart items
+                cart.forEach((item, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'list-group-item d-flex justify-content-between lh-sm';
+
+                    listItem.innerHTML = `
+                        <div>
+                            <h6 class="my-0">${item.name}</h6>
+                            <small class="text-muted">Quantity: ${item.quantity}</small>
+                        </div>
+                        <span class="text-muted">${(item.price * item.quantity).toFixed(2)} MAD</span>
+                        <button class="btn btn-danger btn-sm remove-item" data-index="${index}">Remove</button>
+                    `;
+
+                    cartItemsContainer.appendChild(listItem);
+
+                    totalItems += item.quantity;
+                    totalPrice += item.price * item.quantity;
+                });
+
+                // Update cart badge and total
+                cartCount.textContent = totalItems;
+
+                if (cart.length === 0) {
+                    const emptyMessage = document.createElement('li');
+                    emptyMessage.className = 'list-group-item text-center';
+                    emptyMessage.textContent = 'Your cart is empty.';
+                    cartItemsContainer.appendChild(emptyMessage);
+                }
+
+                // Add total price
+                const totalItem = document.createElement('li');
+                totalItem.className = 'list-group-item d-flex justify-content-between';
+                totalItem.innerHTML = `
+                    <span>Total (MAD)</span>
+                    <strong>${totalPrice.toFixed(2)}</strong>
+                `;
+                cartItemsContainer.appendChild(totalItem);
+
+                // Attach remove item handlers
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        removeFromCart(index);
+                    });
+                });
+            }
+
+            // Remove item from cart
+            function removeFromCart(index) {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.splice(index, 1); // Remove item by index
+                localStorage.setItem('cart', JSON.stringify(cart)); // Update localStorage
+                loadCart(); // Reload cart
+            }
+
+            // Load the cart on page load
+            loadCart();
+        </script>
+
         <div class="col-md-7 col-lg-8">
             <h4 class="mb-3">Billing address</h4>
             <form class="needs-validation" novalidate="">

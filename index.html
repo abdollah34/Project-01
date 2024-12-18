@@ -44,7 +44,7 @@
                 <p class="lead">Bienvenue dans notre boutique, où élégance et style se rencontrent. Découvrez des pièces uniques conçues pour sublimer votre quotidien</p>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
                     <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold"><a href="/Project-01/Carte/index.html"></a>Our products</button>
-                    <button type="button" class="btn btn-outline-secondary btn-lg px-4"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
+                    <button type="button" class="add-to-cart" data-id="2" data-name="Another Product" data-price="20" class="btn btn-outline-secondary btn-lg px-4"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
                         <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z"/>
                         <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
                       </svg><a href="/Project-01/Carte/index.html"></a>Cart</button>
@@ -70,53 +70,82 @@
         <div class="card" style="width: 18rem;">
             <img src="./images/woman-clothing-happy.avif" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Product Name</h5>
+                <h5 class="card-title">Product Name 1</h5>
                 <p class="card-text">120 MAD</p>
-                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                <button class="btn btn-primary add-to-cart" data-name="Product Name 1" data-price="120">Add to Cart</button>
             </div>
         </div>
         <div class="card" style="width: 18rem;">
             <img src="./images/woman-clothing-happy.avif" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Product Name</h5>
-                <p class="card-text">120 MAD</p>
-                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                <h5 class="card-title">Product Name 2</h5>
+                <p class="card-text">150 MAD</p>
+                <button class="btn btn-primary add-to-cart" data-name="Product Name 2" data-price="150">Add to Cart</button>
             </div>
         </div>
         <div class="card" style="width: 18rem;">
             <img src="./images/woman-clothing-happy.avif" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Product Name</h5>
-                <p class="card-text">120 MAD</p>
-                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                <h5 class="card-title">Product Name 3</h5>
+                <p class="card-text">200 MAD</p>
+                <button class="btn btn-primary add-to-cart" data-name="Product Name 3" data-price="200">Add to Cart</button>
             </div>
         </div>
         <div class="card" style="width: 18rem;">
             <img src="./images/woman-clothing-happy.avif" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Product Name</h5>
+                <h5 class="card-title">Product Name 4</h5>
                 <p class="card-text">120 MAD</p>
-                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                <button class="btn btn-primary add-to-cart" data-name="Product Name 1" data-price="120">Add to Cart</button>
             </div>
         </div>
         <div class="card" style="width: 18rem;">
             <img src="./images/woman-clothing-happy.avif" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Product Name</h5>
-                <p class="card-text">120 MAD</p>
-                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                <h5 class="card-title">Product Name 5</h5>
+                <p class="card-text">150 MAD</p>
+                <button class="btn btn-primary add-to-cart" data-name="Product Name 2" data-price="150">Add to Cart</button>
             </div>
         </div>
         <div class="card" style="width: 18rem;">
             <img src="./images/woman-clothing-happy.avif" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Product Name</h5>
-                <p class="card-text">120 MAD</p>
-                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                <h5 class="card-title">Product Name 6</h5>
+                <p class="card-text">200 MAD</p>
+                <button class="btn btn-primary add-to-cart" data-name="Product Name 3" data-price="200">Add to Cart</button>
             </div>
         </div>
-
+        <!-- Add more products as needed -->
     </div>
+
+    <script>
+        // Add product to cart and store in localStorage
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const productName = button.getAttribute('data-name');
+                const productPrice = parseFloat(button.getAttribute('data-price'));
+
+                let cart = JSON.parse(localStorage.getItem('cart')) || []; // Get cart from localStorage or initialize it
+                const existingProductIndex = cart.findIndex(product => product.name === productName);
+
+                if (existingProductIndex !== -1) {
+                    // If product exists, increment the quantity
+                    cart[existingProductIndex].quantity += 1;
+                } else {
+                    // Add new product to cart
+                    cart.push({
+                        name: productName,
+                        price: productPrice,
+                        quantity: 1
+                    });
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart)); // Save updated cart to localStorage
+                alert(`${productName} has been added to your cart!`);
+            });
+        });
+    </script>
+
     <!--tiyira a3ringh-->
     <div class="fotter">
         <div class="container">

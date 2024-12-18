@@ -1,51 +1,45 @@
-// Initialize an empty cart
-const cart = [];
+        // Function to load and display cart data
+        function loadCart() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || []; // Load cart from localStorage
+            const cartItemsElement = document.getElementById("cart-items");
+            const cartCountElement = document.getElementById("cart-count");
+            const cartTotalElement = document.getElementById("cart-total");
 
-// Add to Cart function
-function addToCart(product) {
-    // Check if the product already exists in the cart
-    const existingProduct = cart.find(item => item.name === product.name);
-    if (existingProduct) {
-        existingProduct.quantity += 1;
-    } else {
-        cart.push({...product, quantity: 1 });
-    }
-    updateCartDisplay();
-}
+            // Clear existing cart content
+            cartItemsElement.innerHTML = "";
 
-// Update Cart Display
-function updateCartDisplay() {
-    const cartList = document.querySelector('.list-group');
-    const cartCount = document.querySelector('.badge.bg-primary');
-    const totalAmount = document.querySelector('.list-group-item:last-child strong');
+            if (cart.length === 0) {
+                // If the cart is empty
+                cartItemsElement.innerHTML = '<li class="list-group-item d-flex justify-content-between"><span>Your cart is empty.</span></li>';
+                cartCountElement.textContent = "0";
+                cartTotalElement.textContent = "$0.00";
+                return;
+            }
 
-    cartList.innerHTML = cart
-        .map(
-            item => `
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-                <div>
-                    <h6 class="my-0">${item.name}</h6>
-                    <small class="text-body-secondary">${item.description}</small>
-                </div>
-                <span class="text-body-secondary">$${item.price} x ${item.quantity}</span>
-            </li>
-        `
-        )
-        .join('');
+            // Populate the cart items
+            let totalItems = 0;
+            let totalPrice = 0;
+            cart.forEach(item => {
+                const cartItem = document.createElement("li");
+                cartItem.className = "list-group-item d-flex justify-content-between lh-sm";
+                cartItem.innerHTML = `
+                    <div>
+                        <h6 class="my-0">${item.name}</h6>
+                        <small class="text-muted">Quantity: ${item.quantity}</small>
+                    </div>
+                    <span class="text-muted">$${(item.price * item.quantity).toFixed(2)}</span>
+                `;
+                cartItemsElement.appendChild(cartItem);
+                totalItems += item.quantity;
+                totalPrice += item.price * item.quantity;
+            });
 
-    // Update cart count and total
-    cartCount.textContent = cart.reduce((acc, item) => acc + item.quantity, 0);
-    totalAmount.textContent = `$${cart.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}`;
-}
+            // Update the cart count badge
+            cartCountElement.textContent = totalItems;
 
-// Example usage (simulate product addition)
-document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        const product = {
-            name: button.dataset.name,
-            description: button.dataset.description,
-            price: parseFloat(button.dataset.price)
-        };
-        addToCart(product);
-    });
-});
+            // Update the total price
+            cartTotalElement.textContent = `$${totalPrice.toFixed(2)}`;
+        }
+
+        // Load the cart when the page loads
+        document.addEventListener("DOMContentLoaded", loadCart);
