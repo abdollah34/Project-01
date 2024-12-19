@@ -186,7 +186,7 @@
                             <span class="input-group-text">+212</span>
                             <input type="text" class="form-control" id="username" placeholder="number" required>
                             <div class="invalid-feedback">
-                                Your number is required.
+                                Your number must be between 9 to 10 digits and contain only numbers.
                             </div>
                         </div>
                     </div>
@@ -275,14 +275,33 @@
                 event.preventDefault();
 
                 let form = event.target;
-                if (form.checkValidity() === false) {
+                let phoneNumber = document.getElementById('username').value;
+                let feedback = document.getElementById('username').nextElementSibling;
+
+                // Phone number validation
+                if (/[^0-9]/.test(phoneNumber)) {
+                    feedback.style.display = 'block'; // Show error for non-numeric input
+                    document.getElementById('username').setCustomValidity('Please enter only numbers.');
+                } else if (phoneNumber.length >= 9 && phoneNumber.length <= 10) {
+                    feedback.style.display = 'none'; // Hide error for valid input
+                    document.getElementById('username').setCustomValidity('');
+                } else {
+                    feedback.style.display = 'block'; // Show error for incorrect length
+                    document.getElementById('username').setCustomValidity('Your number must be between 9 to 10 digits.');
+                }
+
+                // Check if the form is valid
+                if (form.checkValidity() === false || document.getElementById('username').validity.valid === false) {
                     form.classList.add('was-validated');
                 } else {
                     // Proceed with form submission
                     alert('Form submitted successfully!');
+                    // Uncomment the line below for actual form submission
+                    // form.submit();
                 }
             });
         </script>
+
     </div>
     <!--fotter-->
     <div class="fotter">
