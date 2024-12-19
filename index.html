@@ -60,7 +60,7 @@
     <hr>
     <!--product-->
     <div class="bestprodact">
-        <h2 class="pb-2 border-bottom">Best products</h2>
+        <h2 class="pb-2 border-bottom">FEATURED PRODUCT</h2>
     </div>
 
     <div class="products">
@@ -93,7 +93,7 @@
             <div class="card-body">
                 <h5 class="card-title">Product Name 4</h5>
                 <p class="card-text">120 MAD</p>
-                <button class="btn btn-primary add-to-cart" data-name="Product Name 1" data-price="120">Add to Cart</button>
+                <button class="btn btn-primary add-to-cart" data-name="Product Name 4" data-price="120">Add to Cart</button>
             </div>
         </div>
         <div class="card" style="width: 18rem;">
@@ -101,18 +101,31 @@
             <div class="card-body">
                 <h5 class="card-title">Product Name 5</h5>
                 <p class="card-text">150 MAD</p>
-                <button class="btn btn-primary add-to-cart" data-name="Product Name 2" data-price="150">Add to Cart</button>
+                <button class="btn btn-primary add-to-cart" data-name="Product Name 5" data-price="150">Add to Cart</button>
             </div>
         </div>
         <div class="card" style="width: 18rem;">
             <img src="./images/woman-clothing-happy.avif" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Product Name 6</h5>
-                <p class="card-text">200 MAD</p>
-                <button class="btn btn-primary add-to-cart" data-name="Product Name 3" data-price="200">Add to Cart</button>
+                <p class="card-text">150 MAD</p>
+                <button class="btn btn-primary add-to-cart" data-name="Product Name 6" data-price="200">Add to Cart</button>
             </div>
         </div>
         <!-- Add more products as needed -->
+    </div>
+    <!-- Add to Cart Modal -->
+    <!-- Add to Cart Alert Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h2>🎉 Item Added to Your Cart!</h2>
+            <p>Your item was successfully added. What would you like to do next?</p>
+            <div class="modal-actions">
+                <button id="continueShopping" class="btn">Continue Shopping</button>
+                <button id="goToCheckout" class="btn primary">Go to Checkout</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -151,7 +164,7 @@
                     <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
                         <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
                     </a>
-                    <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
+                    <span class="mb-3 mb-md-0 text-body-secondary">© 2024 <a href="/Project-01/index.html" class="mb-3 mb-md-0 text-body-secondary">Elegant Woman Store</a>, Inc</span>
                 </div>
                 <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
                     <li class="ms-3"><a class="text-body-secondary" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
