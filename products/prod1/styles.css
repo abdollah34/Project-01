@@ -148,3 +148,57 @@ button:hover {
         /* Remove the minimum width */
     }
 }
+
+
+/* Container for the items */
+
+
+/* Container for the items */
+
+.Carts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    /* Spacing between items */
+}
+
+
+/* Items inside the container */
+
+.item {
+    flex: 1 1 calc(33.33% - 16px);
+    /* Default: 3 items per row */
+    max-width: calc(33.33% - 16px);
+    box-sizing: border-box;
+    /* Include padding and border in width calculation */
+    text-align: center;
+    /* Center text inside items */
+    padding: 16px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+
+/* For medium screens, adjust to 2 items per row */
+
+@media (max-width: 768px) {
+    .item {
+        flex: 1 1 calc(50% - 16px);
+        /* 2 items per row */
+        max-width: calc(50% - 16px);
+    }
+}
+
+
+/* For smaller screens, adjust to 1 item per row */
+
+@media (max-width: 480px) {
+    .item {
+        flex: 1 1 100%;
+        /* 1 item per row */
+        max-width: 100%;
+    }
+}
