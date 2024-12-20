@@ -1,63 +1,80 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const productSelect = document.getElementById("product-select");
-    const productForm = document.getElementById("product-form");
-    const productName = document.getElementById("product-name");
-    const productPrice = document.getElementById("product-price");
-    const productDiscount = document.getElementById("product-discount");
-    const productDescription = document.getElementById("product-description");
-    const productImages = document.getElementById("product-images");
+document.addEventListener('DOMContentLoaded', () => {
+    // Load the products from localStorage
+    const products = JSON.parse(localStorage.getItem('products')) || [];
+    const productSelect = document.getElementById('product-select');
+    const productForm = document.getElementById('product-form');
+    const formTitle = document.getElementById('form-title');
 
-    // Fetch the list of products and populate the dropdown
-    fetch("/api/products")
-        .then((response) => response.json())
-        .then((products) => {
-            products.forEach((product) => {
-                const option = document.createElement("option");
-                option.value = product;
-                option.textContent = product;
-                productSelect.appendChild(option);
-            });
-        })
-        .catch((error) => console.error("Error fetching products:", error));
+    // Function to update the product dropdown
+    function updateProductDropdown() {
+        productSelect.innerHTML = '<option value="">-- Select a product --</option>';
+        products.forEach((product, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = product.name;
+            productSelect.appendChild(option);
+        });
+    }
 
-    // Handle form submission
-    productForm.addEventListener("submit", (e) => {
+    // Function to populate the form fields for editing
+    function populateForm(product) {
+        document.getElementById('product-name').value = product.name;
+        document.getElementById('product-price').value = product.price;
+        document.getElementById('product-description').value = product.description;
+        document.getElementById('product-discount').value = product.discount;
+        document.getElementById('product-images').value = ''; // Reset the image field
+    }
+
+    // Event listener for selecting a product from the dropdown
+    productSelect.addEventListener('change', () => {
+        const selectedProductIndex = productSelect.value;
+        if (selectedProductIndex !== "") {
+            const product = products[selectedProductIndex];
+            populateForm(product);
+            formTitle.textContent = 'Edit Product';
+        } else {
+            productForm.reset();
+            formTitle.textContent = 'Add New Product';
+        }
+    });
+
+    // Handle form submission (Add or Edit product)
+    productForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const selectedProduct = productSelect.value;
-        const formData = new FormData();
+        const name = document.getElementById('product-name').value;
+        const price = parseFloat(document.getElementById('product-price').value);
+        const description = document.getElementById('product-description').value;
+        const discount = parseInt(document.getElementById('product-discount').value);
+        const images = document.getElementById('product-images').files;
 
-        // Add form data for product update
-        formData.append("name", productName.value.trim());
-        formData.append("price", productPrice.value.trim());
-        formData.append("discount", productDiscount.value.trim());
-        formData.append("description", productDescription.value.trim());
+        const newProduct = {
+            name,
+            price,
+            description,
+            discount,
+            images: images.length > 0 ? Array.from(images).map(file => URL.createObjectURL(file)) : []
+        };
 
-        // Add all selected images to the form data
-        Array.from(productImages.files).forEach((file) => {
-            formData.append("images", file);
-        });
+        // Add or update the product
+        const selectedProductIndex = productSelect.value;
+        if (selectedProductIndex !== "") {
+            // Edit existing product
+            products[selectedProductIndex] = newProduct;
+        } else {
+            // Add new product
+            products.push(newProduct);
+        }
 
-        // Send a POST request to update the selected product
-        fetch(`/api/products/${selectedProduct}`, {
-                method: "POST",
-                body: formData,
-            })
-            .then((response) => {
-                if (response.ok) {
-                    return response.text();
-                } else {
-                    throw new Error("Failed to update product.");
-                }
-            })
-            .then((message) => {
-                alert(message);
-                // Optionally reset the form after successful update
-                productForm.reset();
-            })
-            .catch((error) => {
-                console.error("Error updating product:", error);
-                alert("An error occurred while updating the product.");
-            });
+        // Save products to localStorage
+        localStorage.setItem('products', JSON.stringify(products));
+
+        // Update the dropdown and reset form
+        updateProductDropdown();
+        productForm.reset();
+        formTitle.textContent = 'Add New Product';
     });
+
+    // Initial call to update product dropdown
+    updateProductDropdown();
 });
