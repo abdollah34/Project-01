@@ -1,76 +1,61 @@
-const express = require("express");
-const fs = require("fs");
-const path = require("path");
-const multer = require("multer");
+const express = require('express');
+const bodyParser = require('body-parser');
+const multer = require('multer');
+const path = require('path');
 
 const app = express();
-const upload = multer({ dest: "uploads/" }); // Temporary upload directory
+const port = 3000;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-const productsDir = path.join(__dirname, "products");
-
-// Get the list of products
-app.get("/api/products", (req, res) => {
-    fs.readdir(productsDir, (err, files) => {
-        if (err) return res.status(500).send("Error reading products directory.");
-        const directories = files.filter((file) => fs.statSync(path.join(productsDir, file)).isDirectory());
-        res.json(directories);
-    });
+// Configure multer for image upload
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
 });
 
-// Get product details
-app.get("/api/products/:product", (req, res) => {
-    const productPath = path.join(productsDir, req.params.product, "index.html");
-    if (!fs.existsSync(productPath)) return res.status(404).send("Product not found.");
-    fs.readFile(productPath, "utf-8", (err, data) => {
-        if (err) return res.status(500).send("Error reading product file.");
-        res.json({ html: data });
-    });
+const upload = multer({ storage: storage });
+
+app.use(bodyParser.json());
+app.use(express.static('uploads')); // Serve static files (images)
+
+// In-memory product list (can be replaced with a database)
+let products = [
+    { name: "Product 1", price: 20, description: "Description for Product 1", images: [] },
+    { name: "Product 2", price: 30, description: "Description for Product 2", images: [] }
+];
+
+// Endpoint to fetch products for the dropdown
+app.get('/api/products', (req, res) => {
+    res.json(products.map(product => product.name)); // Return only product names
 });
 
-// Update product details
-// Update product details with multi-image support
-app.post("/api/products/:product", upload.array("images", 10), (req, res) => {
-    const productDir = path.join(productsDir, req.params.product);
-    if (!fs.existsSync(productDir)) return res.status(404).send("Product not found.");
+// Endpoint to update product information
+app.post('/api/products/:productName', upload.array('images', 5), (req, res) => {
+    const { name, price, description, discount } = req.body;
+    const productName = req.params.productName;
+    const product = products.find(p => p.name === productName);
 
-    const { name, price, description } = req.body;
-    const htmlPath = path.join(productDir, "index.html");
-
-    // Update index.html content
-    fs.readFile(htmlPath, "utf-8", (err, data) => {
-        if (err) return res.status(500).send("Error reading product file.");
-
-        let updatedHtml = data;
-        if (name) updatedHtml = updatedHtml.replace(/<h2>.*<\/h2>/, `<h2>${name}</h2>`);
-        if (price) updatedHtml = updatedHtml.replace(/<p class="price">.*<\/p>/, `<p class="price">${price}</p>`);
-        if (description) updatedHtml = updatedHtml.replace(/<p class="description">.*<\/p>/, `<p class="description">${description}</p>`);
-
-        fs.writeFile(htmlPath, updatedHtml, (err) => {
-            if (err) return res.status(500).send("Error updating product file.");
-        });
-    });
-
-    // Save uploaded images
-    if (req.files && req.files.length > 0) {
-        const imageDir = path.join(productDir, "images");
-        if (!fs.existsSync(imageDir)) fs.mkdirSync(imageDir);
-
-        req.files.forEach((file) => {
-            const imagePath = path.join(imageDir, file.originalname);
-            fs.renameSync(file.path, imagePath);
-        });
+    if (!product) {
+        return res.status(404).json({ message: "Product not found." });
     }
 
-    res.send("Product updated successfully.");
+    // Update product details
+    product.name = name || product.name;
+    product.price = price || product.price;
+    product.description = description || product.description;
+    product.discount = discount || product.discount;
+
+    // Add new images if provided
+    if (req.files) {
+        product.images = req.files.map(file => `/uploads/${file.filename}`);
+    }
+
+    res.json({ message: 'Product updated successfully!' });
 });
 
-
-// Serve static files (for admin panel)
-app.use(express.static(path.join(__dirname, "hoster")));
-
-// Start the server
-const PORT = 3000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+});
