@@ -1,25 +1,28 @@
-const images = document.querySelectorAll('.carousel-image');
-const prevButton = document.getElementById('prev');
-const nextButton = document.getElementById('next');
-let currentIndex = 0;
+// Initialize an empty cart if not already present
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// Function to show the current image
-function showImage(index) {
-    images.forEach((img, i) => {
-        img.classList.toggle('active', i === index);
-    });
+// Function to add a product to the cart
+function addToCart(product) {
+    const existingProduct = cart.find(item => item.id === product.id);
+    if (existingProduct) {
+        existingProduct.quantity += 1;
+    } else {
+        cart.push({...product, quantity: 1 });
+    }
+
+    // Save the cart to localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`${product.name} added to the cart!`);
 }
 
-// Event listeners for buttons
-prevButton.addEventListener('click', () => {
-    currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
-    showImage(currentIndex);
+// Event listener for "Add to Cart" buttons
+document.querySelectorAll(".add-to-cart").forEach(button => {
+    button.addEventListener("click", () => {
+        const product = {
+            id: button.dataset.id,
+            name: button.dataset.name,
+            price: parseFloat(button.dataset.price),
+        };
+        addToCart(product);
+    });
 });
-
-nextButton.addEventListener('click', () => {
-    currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
-    showImage(currentIndex);
-});
-
-// Show the first image initially
-showImage(currentIndex);

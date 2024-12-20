@@ -1,11 +1,10 @@
-body {
+.products_details {
     font-family: Arial, sans-serif;
     background-color: #e3f2fd;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
 }
 
 .product-card {
@@ -28,6 +27,12 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
+}
+
+.image-container img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
 }
 
 .image-container img {
@@ -85,8 +90,8 @@ h2 {
 #size-options span {
     padding: 5px 10px;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 12px;
+    border-radius: 10px;
+    font-size: 14px;
 }
 
 #color-options .color {
@@ -109,7 +114,7 @@ h2 {
 }
 
 .blue {
-    background-color: blue;
+    background-color: orange;
 }
 
 input[type="number"] {
@@ -120,31 +125,114 @@ input[type="number"] {
     text-align: center;
 }
 
-button {
-    width: 100%;
+.add-to-cart {
+    width: 50%;
     background-color: #007bff;
     color: white;
     padding: 10px;
     border: none;
-    border-radius: 4px;
+    border-radius: 12px;
     font-size: 16px;
     cursor: pointer;
+    align-items: center;
 }
 
-button:hover {
-    background-color: #0056b3;
+add-to-cart:hover {
+    background-color: #b4a7b4;
 }
+
+.Carts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    /* Spacing between items */
+}
+
+
+/* Items inside the container */
+
+.item {
+    flex: 1 1 calc(33.33% - 16px);
+    /* Default: 3 items per row */
+    max-width: calc(33.33% - 16px);
+    box-sizing: border-box;
+    /* Include padding and border in width calculation */
+    text-align: center;
+    /* Center text inside items */
+    padding: 16px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+
+/* For medium screens, adjust to 2 items per row */
 
 @media (max-width: 768px) {
-    .product-card {
-        flex-direction: column;
-        /* Stacks items vertically on smaller screens */
+    .item {
+        flex: 1 1 calc(50% - 16px);
+        /* 2 items per row */
+        max-width: calc(50% - 16px);
     }
-    .image-container,
-    .details-container {
+}
+
+
+/* For smaller screens, adjust to 1 item per row */
+
+@media (max-width: 480px) {
+    .item {
         flex: 1 1 100%;
-        /* Full width for each section */
-        min-width: unset;
-        /* Remove the minimum width */
+        /* 1 item per row */
+        max-width: 100%;
     }
+}
+
+.products {
+    display: flex;
+    grid-column: 3;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px 30px;
+    flex: 0 0 30%;
+    background-color: non;
+}
+
+.card {
+    flex: 1 0 30%;
+    /* Each item takes up 30% of the container's width, creating 3 columns */
+    box-sizing: border-box;
+    /* Ensures padding doesn't affect the width */
+    background-color: lightgray;
+    padding: 10px;
+    text-align: center;
+}
+
+#carouselExampleIndicators {
+    width: 90%;
+    /* Set the carousel width to 50% of the parent container (adjust as needed) */
+    max-width: 500px;
+    /* Set a max width to prevent it from getting too large */
+    margin: 0 auto;
+    /* Center the carousel horizontally */
+}
+
+.carousel-inner {
+    height: 300px;
+    /* Adjust the height of the carousel */
+}
+
+.carousel-inner img {
+    width: 100%;
+    /* Make the image width 100% of the container */
+    height: 100%;
+    /* Set the height of the image to fill the container */
+    object-fit: cover;
+    /* Ensures the images cover the container area */
+}
+
+.pb-2_border-bottom {
+    color: #0b132b;
+    background-color: #ddd;
 }
