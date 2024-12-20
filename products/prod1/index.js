@@ -20,7 +20,8 @@ document.querySelectorAll(".add-to-cart").forEach(button => {
     button.addEventListener("click", () => {
         const product = {
             id: button.dataset.id,
-            name: button.dataset.name,
+            name: button
+                .dataset.name,
             price: parseFloat(button.dataset.price),
         };
         addToCart(product);

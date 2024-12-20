@@ -85,6 +85,7 @@ h2 {
     display: inline-block;
     margin-right: 10px;
     cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease, border 0.3s ease;
 }
 
 #size-options span {
@@ -92,6 +93,7 @@ h2 {
     border: 1px solid #ddd;
     border-radius: 10px;
     font-size: 14px;
+    transition: transform 0.3s ease, background-color 0.3s ease, border 0.3s ease;
 }
 
 #color-options .color {
@@ -99,6 +101,7 @@ h2 {
     height: 20px;
     border-radius: 50%;
     display: inline-block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .red {
@@ -116,6 +119,31 @@ h2 {
 .blue {
     background-color: orange;
 }
+
+
+/* Selected size animation */
+
+#size-options span.selected {
+    transform: scale(1.1);
+    background-color: #007bff;
+    /* Highlight with blue */
+    color: #fff;
+    border: 1px solid #0056b3;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+
+/* Selected color animation */
+
+#color-options .color.selected {
+    transform: scale(1.3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border: 2px solid #000;
+}
+
+
+/* Styling for number input */
 
 input[type="number"] {
     width: 50px;

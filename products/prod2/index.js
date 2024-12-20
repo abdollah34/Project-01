@@ -1,25 +1,79 @@
-const images = document.querySelectorAll('.carousel-image');
-const prevButton = document.getElementById('prev');
-const nextButton = document.getElementById('next');
-let currentIndex = 0;
+// Function to handle adding a product to the cart
+function addToCart() {
+    const productName = document.querySelector(".details-container h2").textContent; // Product name
+    const productPrice = parseFloat(document.querySelector(".price").textContent.replace("$", "")); // Product price
 
-// Function to show the current image
-function showImage(index) {
-    images.forEach((img, i) => {
-        img.classList.toggle('active', i === index);
+    // Get the main image for the product
+    const productImage = document.querySelector(".carousel-item.active img").src;
+
+    // Get selected size
+    const selectedSize = document.querySelector("#size-options span.selected");
+    const size = selectedSize ? selectedSize.textContent : "N/A";
+
+    // Get selected color
+    const selectedColor = document.querySelector("#color-options .color.selected");
+    const color = selectedColor ? selectedColor.classList[1] : "N/A";
+
+    // Get quantity
+    const quantity = parseInt(document.getElementById("quantity").value) || 1;
+
+    // Load cart from localStorage
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Check if the product with the same options is already in the cart
+    const existingProduct = cart.find(item =>
+        item.name === productName &&
+        item.size === size &&
+        item.color === color
+    );
+
+    if (existingProduct) {
+        // Increment quantity
+        existingProduct.quantity += quantity;
+    } else {
+        // Add new product
+        cart.push({
+            name: productName,
+            price: productPrice,
+            size: size,
+            color: color,
+            quantity: quantity,
+            image: productImage // Include product image
+        });
+    }
+
+    // Save cart back to localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert(`Added ${productName} (Size: ${size}, Color: ${color}, Quantity: ${quantity}) to your cart!`);
+}
+
+// Add event listeners for size and color options
+function setupOptionSelectors() {
+    const sizeOptions = document.querySelectorAll("#size-options span");
+    const colorOptions = document.querySelectorAll("#color-options .color");
+
+    // Handle size selection
+    sizeOptions.forEach(size => {
+        size.addEventListener("click", () => {
+            sizeOptions.forEach(s => s.classList.remove("selected"));
+            size.classList.add("selected");
+        });
+    });
+
+    // Handle color selection
+    colorOptions.forEach(color => {
+        color.addEventListener("click", () => {
+            colorOptions.forEach(c => c.classList.remove("selected"));
+            color.classList.add("selected");
+        });
     });
 }
 
-// Event listeners for buttons
-prevButton.addEventListener('click', () => {
-    currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
-    showImage(currentIndex);
-});
+// Initialize event listeners on page load
+document.addEventListener("DOMContentLoaded", () => {
+    setupOptionSelectors();
 
-nextButton.addEventListener('click', () => {
-    currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
-    showImage(currentIndex);
+    const addToCartButton = document.querySelector(".add-to-cart");
+    addToCartButton.addEventListener("click", addToCart);
 });
-
-// Show the first image initially
-showImage(currentIndex);
