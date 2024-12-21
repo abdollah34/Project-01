@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
-    <link rel="icon" type="image/x-icon" href="/Project-01/images/a7bdc469-cd70-4ea1-bb57-b59204ad8182-cover.png">
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
 
 </head>
 
@@ -17,19 +18,19 @@
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
             <div class="col-md-3 mb-2 mb-md-0">
                 <a href="/Project-01/index.html" class="d-inline-flex link-body-emphasis text-decoration-none">
-                    <img src="/Project-01/images/a7bdc469-cd70-4ea1-bb57-b59204ad8182-cover.png" height="70">
+                    <img src="/images/logo.png" height="70">
                 </a>
             </div>
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/Project-01/index.html" class="nav-link px-2">Home</a></li>
-                <li><a href="/Project-01/our prodact/index.html" class="nav-link px-2">Our Procuct</a></li>
-                <li><a href="/Project-01/Contact us/index.html" class="nav-link px-2 link-secondary">Contact Us</a></li>
-                <li><a href="/Project-01/about us/index.html" class="nav-link px-2">About Us</a></li>
+                <li><a href="/index.html" class="nav-link px-2">Home</a></li>
+                <li><a href="/our prodact/index.html" class="nav-link px-2">Our Procuct</a></li>
+                <li><a href="index.html" class="nav-link px-2 link-secondary">Contact Us</a></li>
+                <li><a href="/about us/index.html" class="nav-link px-2">About Us</a></li>
             </ul>
 
             <div class="col-md-3 text-end">
-                <button type="button" class="btn btn-primary" onclick="location.href='/Project-01/Carte/index.html'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
+                <button type="button" class="btn btn-primary" onclick="location.href='/Carte/index.html'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
                     <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z"/>
                     <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
                   </svg>Cart</button>
@@ -52,7 +53,7 @@
                     </nav>
                 </div>
             </div>
-        </div>
+            </di</ol>
     </section>
 
     <main>
@@ -60,161 +61,320 @@
             <div class="row g-5">
                 <!-- Contact Information Block -->
                 <div class="col-xl-6">
+                    <h2 class="pb-4">Get in Touch</h2>
                     <div class="row row-cols-md-2 g-4">
-                        <div class="aos-item" data-aos="fade-up" data-aos-delay="200">
-                            <div class="aos-item__inner">
-                                <div class="bg-light hvr-shutter-out-horizontal d-block p-3">
-                                    <div class="d-flex justify-content-start">
-                                        <i class="fa-solid fa-envelope h3 pe-2"></i>
-                                        <span class="h5">Email</span>
+                        <!-- Email Card -->
+                        <div class="col">
+                            <div class="card contact-card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="icon-circle bg-primary text-white me-3">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        <h5 class="card-title mb-0">Email Us</h5>
                                     </div>
-                                    <span>example@domain.com</span>
+                                    <p class="card-text"><a href="mailto:example@domain.com" class="text-decoration-none">example@domain.com</a></p>
                                 </div>
                             </div>
                         </div>
-                        <div class="aos-item" data-aos="fade-up" data-aos-delay="400">
-                            <div class="aos-item__inner">
-                                <div class="bg-light hvr-shutter-out-horizontal d-block p-3">
-                                    <div class="d-flex justify-content-start">
-                                        <i class="fa-solid fa-phone h3 pe-2"></i>
-                                        <span class="h5">Phone</span>
+
+                        <!-- Phone Card -->
+                        <div class="col">
+                            <div class="card contact-card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="icon-circle bg-success text-white me-3">
+                                            <i class="fas fa-phone"></i>
+                                        </div>
+                                        <h5 class="card-title mb-0">Call Us</h5>
                                     </div>
-                                    <span>+212 767495006, +212 767495006</span>
+                                    <p class="card-text">
+                                        <a href="tel:+212767495006" class="text-decoration-none d-block">+212 767495006</a>
+                                        <a href="tel:+212767495006" class="text-decoration-none">+212 767495006</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="aos-item mt-4" data-aos="fade-up" data-aos-delay="600">
-                        <div class="aos-item__inner">
-                            <div class="bg-light hvr-shutter-out-horizontal d-block p-3">
-                                <div class="d-flex justify-content-start">
-                                    <i class="fa-solid fa-location-pin h3 pe-2"></i>
-                                    <span class="h5">Office location</span>
+
+                    <!-- Location Card -->
+                    <div class="mt-4">
+                        <div class="card contact-card shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="icon-circle bg-warning text-white me-3">
+                                        <i class="fas fa-location-pin"></i>
+                                    </div>
+                                    <h5 class="card-title mb-0">Visit Us</h5>
                                 </div>
-                                <span>Tinejdad-errachida-morocco</span>
+                                <p class="card-text">Tinejdad-errachida-morocco</p>
                             </div>
                         </div>
                     </div>
-                    <div class="aos-item" data-aos="fade-up" data-aos-delay="800">
-                        <div class="mt-4 w-100 aos-item__inner">
-                            <iframe class="hvr-shadow" width="100%" height="345" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3177.6747799488355!2d-5.5607296!3d33.8690048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda04532eb7e82d1:0x379691fe3032969!2sBassin+Souani+%D8%B5%D9%87%D8%B1%D9%8A%D8%AC+%D8%A7%D9%84%D8%B3%D9%88%D8%A7%D9%86%D9%8A%E2%80%AD!5e0!3m2!1sen!2sus!4v1701260988241"
-                                allowfullscreen="" loading="lazy"></iframe>
+
+                    <!-- Map -->
+                    <div class="mt-4">
+                        <div class="card contact-card shadow">
+                            <div class="card-body p-0">
+                                <iframe class="w-100" height="300" style="border:0; border-radius: 0.375rem;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3177.6747799488355!2d-5.5607296!3d33.8690048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda04532eb7e82d1:0x379691fe3032969!2sBassin+Souani+%D8%B5%D9%87%D8%B1%D9%8A%D8%AC+%D8%A7%D9%84%D8%B3%D9%88%D8%A7%D9%86%D9%8A%E2%80%AD!5e0!3m2!1sen!2sus!4v1701260988241"
+                                    allowfullscreen="" loading="lazy">
+                                </iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                <style>
+                    .icon-circle {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    
+                    .contact-card {
+                        transition: transform 0.3s ease;
+                        border: none;
+                    }
+                    
+                    .contact-card:hover {
+                        transform: translateY(-5px);
+                    }
+                    
+                    .card-text a {
+                        color: #666;
+                    }
+                    
+                    .card-text a:hover {
+                        color: #0d6efd;
+                    }
+                </style>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+                <style>
+                    .contact-icon {
+                        margin-right: 10px;
+                    }
+                </style>
+
+                <!-- SVG Icons -->
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                    <symbol id="icon-envelope" viewBox="0 0 16 16">
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.708 2.825L15 11.105V5.383zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741zM1 11.105l4.708-2.897L1 5.383v5.722z"/>
+                    </symbol>
+                    <symbol id="icon-phone" viewBox="0 0 16 16">
+                        <path d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                    </symbol>
+                    <symbol id="icon-location" viewBox="0 0 16 16">
+                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                    </symbol>
+                </svg>
+
                 <!-- Contact Form Block -->
                 <div class="col-xl-6">
-                    <h2 class="pb-4">Leave a message</h2>
-                    <div class="row g-4">
-                        <div class="col-6 mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Hamiid">
+                    <h2 class="pb-4 text-primary fw-bold">Leave a message</h2>
+                    <div class="contact-form-wrapper p-4 rounded-3 shadow-lg bg-white">
+                        <div class="row g-4">
+                            <div class="col-6 mb-3">
+                                <label for="firstName" class="form-label fw-semibold">First Name</label>
+                                <input type="text" class="form-control form-control-lg border-0 bg-light" id="firstName" placeholder="Hamiid">
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="lastName" class="form-label fw-semibold">Last Name</label>
+                                <input type="text" class="form-control form-control-lg border-0 bg-light" id="lastName" placeholder="Bag">
+                            </div>
                         </div>
-                        <div class="col-6 mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Bag">
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-semibold">Email</label>
+                            <input type="email" class="form-control form-control-lg border-0 bg-light" id="email" placeholder="name@example.com">
                         </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label fw-semibold">Phone</label>
+                            <input type="tel" class="form-control form-control-lg border-0 bg-light" id="phone" placeholder="+212 ********">
+                        </div>
+                        <div class="mb-3">
+                            <label for="city" class="form-label fw-semibold">City</label>
+                            <select class="form-select form-select-lg border-0 bg-light" id="city">
+                                <option value="" selected disabled>Select your city</option>
+                                <option value="1">Tangier</option>
+                                <!-- Keep your existing options -->
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="message" class="form-label fw-semibold">Message</label>
+                            <textarea class="form-control form-control-lg border-0 bg-light" id="message" rows="4" placeholder="Write your message here..."></textarea>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-lg w-100 rounded-pill hover-shadow">
+                            <i class="fas fa-paper-plane me-2"></i>Send Message
+                        </button>
                     </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Phone</label>
-                        <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="+212 ********">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">City</label>
-                        <select class="form-select" aria-label="Default select example">
-                    <option value="1">Tangier</option>
-                    <option value="2">Tetouan</option>
-                    <option value="3">Chefchaouen</option>
-                    <option value="4">Al Hoceima</option>
-                    <option value="5">Larache</option>
-                    <option value="6">Casablanca</option>
-                    <option value="7">Rabat</option>
-                    <option value="8">Mohammedia</option>
-                    <option value="9">Kenitra</option>
-                    <option value="10">Salé</option>
-                    <option value="11">El Jadida</option>
-                    <option value="12">Oujda</option>
-                    <option value="13">Nador</option>
-                    <option value="14">Berkane</option>
-                    <option value="15">Taourirt</option>
-                    <option value="16">Jerada</option>
-                    <option value="17">Fez</option>
-                    <option value="18">Meknes</option>
-                    <option value="19">Taza</option>
-                    <option value="20">Ifrane</option>
-                    <option value="21">Sefrou</option>
-                    <option value="22">Marrakesh</option>
-                    <option value="23">Agadir</option>
-                    <option value="24">Taroudant</option>
-                    <option value="25">Essaouira</option>
-                    <option value="26">Ouarzazate</option>
-                    <option value="27">Zagora</option>
-                    <option value="28">Beni Mellal</option>
-                    <option value="29">Khénifra</option>
-                    <option value="30">Midelt</option>
-                    <option value="31">Azilal</option>
-                    <option value="32">Laayoune</option>
-                    <option value="33">Dakhla</option>
-                    <option value="34">Smara</option>
-                    <option value="35">Tan-Tan</option>
-                    <option value="36">Guelmim</option>
-                    <option value="37">Errachidia</option>
-                    <option value="38">Tinghir</option>
-                    <option value="39">Rissani</option>
-                    <option value="40">Merzouga</option>
-                    
-                  <option value="2">None</option>
-                </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Message</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                    <button type="button" class="btn btn-dark">Send Message</button>
                 </div>
+
+                <style>
+                    .contact-form-wrapper {
+                        background: linear-gradient(to right bottom, #ffffff, #f8f9fa);
+                        transition: transform 0.3s ease;
+                    }
+                    
+                    .contact-form-wrapper:hover {
+                        transform: translateY(-5px);
+                    }
+                    
+                    .form-control,
+                    .form-select {
+                        transition: all 0.3s ease;
+                    }
+                    
+                    .form-control:focus,
+                    .form-select:focus {
+                        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+                        transform: scale(1.02);
+                    }
+                    
+                    .hover-shadow:hover {
+                        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                    }
+                    
+                    .btn-primary {
+                        transition: all 0.3s ease;
+                    }
+                    
+                    .btn-primary:hover {
+                        transform: translateY(-2px);
+                    }
+                </style>
             </div>
         </div>
     </main>
     <!--quick email and about us-->
-    <div class="bg-success bg-opacity-25 py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-xl-3 col-sm-12">
-                    <h5 class="pb-3"><i class="fa-solid fa-user-group pe-1"></i> About us</h5>
-                    <span class="text-secondary">This is a wider card with supporting text below as a natural lead-in to additional content.</span>
+    <a href="#" class="social-btn twitter"></a>
+    <div class="container">
+        <div class="row g-4">
+            <!-- About Us Column -->
+            <div class="col-md-6 col-xl-4"></div>
+            <div class="card h-100 border-0 bg-transparent">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">
+                        <i class="fa-solid fa-user-group text-success me-2"></i>About us
+                    </h5>
+                    <p class="card-text text-muted">Experience excellence in every product. We bring quality, innovation, and style together to enhance your lifestyle.</p>
                 </div>
-                <div class="col-md-6 col-xl-3 col-sm-12">
-                    <h5 class="pb-3"><i class="fa-solid fa-link pe-1"></i> Important links</h5>
-                    <ul>
-                        <li><a href="/Project-01/about us/index.html" class="text-decoration-none link-secondary">About us</a></li>
-                        <li><a href="/Project-01/our prodact/index.html" class="text-decoration-none link-secondary">Our Product</a></li>
-                        <li><a href="/Project-01/index.html" class="text-decoration-none link-secondary">Home Page</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-6 col-xl-3 col-sm-12">
-                    <h5 class="pb-3"><i class="fa-solid fa-location-dot pe-1"></i> Our location</h5>
-                    <span class="text-secondary">
-                ors<br>
-                errachidai<br>
-                lmaghreb<br>
-              </span>
-                </div>
-                <div class="col-md-6 col-xl-3 col-sm-12">
-                    <h5 class="pb-3"><i class="fa-solid fa-paper-plane pe-1"></i> Stay updated</h5>
-                    <form>
-                        <input type="text" class="w-100 mb-2 form-control" name="" placeholder="Email ID">
-                        <button class="w-100 btn btn-dark">Subscribe now</button>
-                    </form>
+            </div>
+        </div>
+
+        <!-- Enhanced Social Media Column -->
+        <div class="col-md-6 col-xl-4"></div>
+        <div class="card h-100 border-0 bg-transparent">
+            <div class="card-body">
+                <h5 class="card-title mb-3">
+                    <i class="fa-solid fa-hashtag text-success me-2"></i>Follow Us
+                </h5>
+                <div class="social-links">
+                    <a href="#" class="social-btn facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </a>
+                    <a href="#" class="social-btn instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                    <a href="#" class="social-btn twitter">
+                        <i class="fab fa-twitter"></i>
+                        <span>Twitter</span>
+                    </a>
+                    <a href="#" class="social-btn linkedin">
+                        <i class="fab fa-linkedin-in"></i>
+                        <span>LinkedIn</span>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Newsletter Column -->
+    <div class="col-md-6 col-xl-4">
+        <div class="card h-100 border-0 bg-transparent">
+            <div class="card-body">
+
+                <form>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <style>
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #666;
+        }
+        
+        .social-btn i {
+            width: 20px;
+            margin-right: 10px;
+        }
+        
+        .social-btn:hover {
+            transform: translateX(10px);
+            color: white;
+        }
+        
+        .social-btn.facebook:hover {
+            background: #3b5998;
+        }
+        
+        .social-btn.instagram:hover {
+            background: #e1306c;
+        }
+        
+        .social-btn.twitter:hover {
+            background: #1da1f2;
+        }
+        
+        .social-btn.linkedin:hover {
+            background: #0077b5;
+        }
+        
+        .card {
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .form-control:focus {
+            border-color: #198754;
+            box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+        }
+    </style>
+    <style>
+        /* Enhanced About Us section */
+        
+        .col-md-6.col-xl-4 {
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        /* Add spacing between columns */
+    </style>
     <!--fotter-->
 
     <div class="fotter">
